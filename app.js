@@ -1,9 +1,10 @@
-const express = require("express");
+import express from 'express';
+import fetch from 'cross-fetch';
 const app = express();
 const PORT = 3000 || process.env.PORT;
 app.use(express.json());
 
-cashDelivery = [
+const cashDelivery = [
   400001, 400002, 400003, 400004, 400005, 400006, 400007, 400008, 400009,
   400010, 400011, 400012, 400013, 400014, 400015, 400016, 400017, 400018,
   400019, 400020, 400021, 400022, 400024, 400025, 400026, 400027, 400028,
@@ -13,7 +14,7 @@ cashDelivery = [
   400075, 400077, 400080, 400084, 400085, 400086, 400088, 400089, 400093,
   400094, 400098, 400099, 400101, 400102, 400104,
 ];
-mainDelivery = [
+const mainDelivery = [
   400001, 400002, 400003, 400004, 400005, 400006, 400007, 400008, 400009,
   400010, 400011, 400012, 400013, 400014, 400015, 400016, 400017, 400018,
   400019, 400020, 400021, 400022, 400024, 400025, 400026, 400027, 400028,
@@ -68,11 +69,11 @@ app.post("/profile-handler", (req, res) => {
         if(r.status==200){
             return res.send(JSON.stringify({status:"success",message:"Profile Updated Successfully"}))
         }else{
-            return res.json({status:"error",message:`An error occurred ${r.status}`})
+            return res.json(JSON.stringify({status:"error",message:`An error occurred ${r.status}`}))
         }
     })
     .catch((e) => {
-        return res.send({status:"error",message:`An error occurred ${e.toString()}`}) 
+        return res.send(JSON.stringify({status:"error",message:`An error occurred ${e.toString()}`})) 
     });
 });
 
