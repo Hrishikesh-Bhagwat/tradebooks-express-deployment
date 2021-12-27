@@ -39,7 +39,7 @@ app.post("/profile-handler", (req, res) => {
       uid: req.body.uid,
     },
     update: {
-      $set: {
+      "$set": {
         name: req.body.name,
         email: req.body.email,
         phone: req.body.phone,
@@ -66,13 +66,13 @@ app.post("/profile-handler", (req, res) => {
   )
     .then((r) => {
         if(r.status==200){
-            return res.json({"status":"success","message":"Profile Updated Successfully"})
+            return res.send(JSON.stringify({status:"success",message:"Profile Updated Successfully"}))
         }else{
-            return res.json({"status":"error","message":`An error occurred ${r.status}`})
+            return res.json({status:"error",message:`An error occurred ${r.status}`})
         }
     })
     .catch((e) => {
-        return res.json({"status":"error","message":`An error occurred ${e.toString()}`}) 
+        return res.send({status:"error",message:`An error occurred ${e.toString()}`}) 
     });
 });
 
