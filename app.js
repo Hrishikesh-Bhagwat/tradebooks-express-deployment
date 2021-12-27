@@ -81,6 +81,15 @@ app.get("/", (req, res) => {
   return res.send("All up and running");
 });
 
+app.post("/handle-book-quote",(req,res)=>{
+    return res.json({"status":"Received the event"})
+})
+
+app.post("/handle-game-quote",(req,res)=>{
+  return res.json({"status":"Received the event"})
+})
+
+
 app.listen(PORT, (e) => {
   if (e) {
     console.log(e);
