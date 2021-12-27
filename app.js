@@ -27,7 +27,7 @@ mainDelivery = [
 app.post("/profile-handler", (req, res) => {
   var isSell = false;
   var isCash = false;
-  if (mainDelivery.include(parseInt(req.pin))) {
+  if (mainDelivery.includes(parseInt(req.pin))) {
     isSell = true;
   }
   if (cashDelivery.includes(parseInt(req.pin))) {
