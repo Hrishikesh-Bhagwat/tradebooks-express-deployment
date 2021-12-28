@@ -178,6 +178,88 @@ app.post("/add-game-quote", async (req, res) => {
   });
 });
 
+app.post("/add-book-quote", async (req, res) => {
+  var body = req.body;
+  var bookId = body.book_id;
+  var userId = body.user_id;
+  var price = body.price;
+  var quantity = body.quantity;
+  var method = body.method;
+  var token = body.token;
+  fetch(
+    "https://tradebooksapp.com/v1/api/tradebooks/crud/postgres/users/read",
+    {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + req.body.token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ op: "one", find: { uid: userId } }),
+    }
+  ).then(async function (r) {
+    if(r.status!=200){
+      throw r.status.toString();
+    }
+    var detailBody = await r.json();
+    if (method == "sell" && detailBody.result.is_sell == false) {
+      return res.send(
+        JSON.stringify({
+          status: "error",
+          message: "Selling not supported from your location yet",
+        })
+      );
+    } else {
+      var addQuoteBody = JSON.stringify({
+        op: "one",
+        doc: {
+          book_id: bookId,
+          user_id: userId,
+          price: price,
+          quantity: quantity,
+          name: detailBody.result.name,
+          method: method,
+          line1: detailBody.result.line1,
+          line2: detailBody.result.line2,
+          line3: detailBody.result.line3,
+          pin: detailBody.result.pin,
+          phone: detailBody.result.phone,
+          is_cash: detailBody.result.is_cash,
+          is_sell: detailBody.result.is_sell,
+          email: detailBody.result.email,
+        },
+      });
+      var quoteResponse=await fetch("https://tradebooksapp.com/v1/api/tradebooks/crud/postgres/book_quotes/create",{
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        body: addQuoteBody
+      })
+      if(quoteResponse.status!=200){
+        console.log(await quoteResponse.json());
+        throw "Error in adding quote"
+      }else{
+        return res.send(
+          JSON.stringify({
+            status:"success",
+            message:"Successfully added quote"
+          })
+        )
+      }
+    }
+  }).catch(e=>{
+    return res.send(
+      JSON.stringify(
+        {
+          status:"error",
+          message:`An error occurred ${e.toString()}`
+        }
+      )
+    )
+  });
+});
+
 app.post("/handle-book-quote", (req, res) => {
   return res.json({ status: "Received the event" });
 });
