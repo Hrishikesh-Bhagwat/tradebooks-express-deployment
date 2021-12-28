@@ -149,12 +149,13 @@ app.post("/add-game-quote", async (req, res) => {
       var quoteResponse=await fetch("https://tradebooksapp.com/v1/api/tradebooks/crud/postgres/game_quotes/create",{
         method: "POST",
         headers: {
-          Authorization: "Bearer " + req.body.token,
+          Authorization: "Bearer " + token,
           "Content-Type": "application/json",
         },
         body: addQuoteBody
       })
       if(quoteResponse.status!=200){
+        console.log(await quoteResponse.json());
         throw "Error in adding quote"
       }else{
         return res.send(
