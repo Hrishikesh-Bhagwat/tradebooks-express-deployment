@@ -158,6 +158,25 @@ app.post("/add-game-quote", async (req, res) => {
         console.log(await quoteResponse.json());
         throw "Error in adding quote"
       }else{
+        var event=await fetch("https://tradebooksapp.com/v1/api/tradebooks/eventing/queue",{
+          method:"POST",
+          headers:{
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(
+            {
+              type:"game_quote",payload:{game_id: gameId}
+            }
+          )
+        })
+        if(event.status!=200){
+          return res.send(
+            JSON.stringify({
+              status:"error",
+              message:"Error in event"
+            })
+          )
+        }
         return res.send(
           JSON.stringify({
             status:"success",
@@ -240,6 +259,25 @@ app.post("/add-book-quote", async (req, res) => {
         console.log(await quoteResponse.json());
         throw "Error in adding quote"
       }else{
+        var event=await fetch("https://tradebooksapp.com/v1/api/tradebooks/eventing/queue",{
+          method:"POST",
+          headers:{
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(
+            {
+              type:"book_quote",payload:{book_id: bookId}
+            }
+          )
+        })
+        if(event.status!=200){
+          return res.send(
+            JSON.stringify({
+              status:"error",
+              message:"Error in event"
+            })
+          )
+        }
         return res.send(
           JSON.stringify({
             status:"success",
