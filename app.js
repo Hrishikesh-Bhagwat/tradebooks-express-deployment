@@ -135,7 +135,7 @@ app.post("/add-game-quote", async (req, res) => {
           price: price,
           quantity: quantity,
           name: detailBody.result.name,
-          method: detailBody.result.method,
+          method: method,
           line1: detailBody.result.line1,
           line2: detailBody.result.line2,
           line3: detailBody.result.line3,
