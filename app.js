@@ -331,6 +331,7 @@ app.post("/update-game-quote", async (req, res) => {
   var quantity = body.quantity;
   var token = body.token;
   var quoteId = body.quote_id;
+  var gameId=body.game_id;
   var updateQuoteBody = JSON.stringify({
     op: "all",
     find: {
