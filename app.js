@@ -338,8 +338,10 @@ app.post("/update-game-quote", async (req, res) => {
       id: quoteId,
     },
     update: {
-      price: price,
-      quantity: quantity,
+      $set: {
+        price: price,
+        quantity: quantity,
+      },
     },
   });
   try {
