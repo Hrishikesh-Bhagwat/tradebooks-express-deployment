@@ -399,6 +399,73 @@ app.post("/update-game-quote", async (req, res) => {
   }
 });
 
+app.post("/delete-game-quote",async (req,res)=>{
+  var body = req.body;
+  var userId = body.user_id;
+  var token = body.token;
+  var quoteId = body.quote_id;
+  var gameId=body.game_id;
+  var deleteQuoteBody = JSON.stringify({
+    op: "all",
+    find: {
+      user_id: userId,
+      id: quoteId,
+    },
+  });
+  try {
+    var quoteResponse = await fetch(
+      "https://tradebooksapp.com/v1/api/tradebooks/crud/postgres/game_quotes/delete",
+      {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        body: deleteQuoteBody,
+      }
+    );
+    if (quoteResponse.status != 200) {
+      console.log(await quoteResponse.json());
+      throw "Error in deleting quote";
+    } else {
+      var event = await fetch(
+        "https://tradebooksapp.com/v1/api/tradebooks/eventing/queue",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            type: "game_quote",
+            payload: {game_id: gameId},
+          }),
+        }
+      );
+      if (event.status != 200) {
+        return res.send(
+          JSON.stringify({
+            status: "error",
+            message: "Error in event",
+          })
+        );
+      }
+      return res.send(
+        JSON.stringify({
+          status: "success",
+          message: "Successfully added quote",
+        })
+      );
+    }
+  } catch (e) {
+    return res.send(
+      JSON.stringify({
+        status: "error",
+        message: `An error occurred ${e.toString()}`,
+      })
+    );
+  }
+})
+
 app.post("/update-book-quote", async (req, res) => {
   var body = req.body;
   var userId = body.user_id;
