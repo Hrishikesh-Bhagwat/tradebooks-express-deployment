@@ -177,7 +177,7 @@ app.post("/profile-handler", (req, res) => {
     },
   });
   fetch(
-    "https://tradebooksapp.com/v1/api/tradebooks/crud/postgres/users/update",
+    "http://68.183.80.95:4122/v1/api/tradebooks/crud/mongo/users/update",
     {
       method: "POST",
       headers: {
