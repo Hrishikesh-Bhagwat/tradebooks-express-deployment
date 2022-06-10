@@ -153,7 +153,7 @@ app.post("/profile-handler", (req, res) => {
   if (mainDelivery.includes(req.body.pin)) {
     isSell = true;
   }
-  if (cashDelivery.includes(parseInt(req.body.pin))) {
+  if (cashDelivery.includes(req.body.pin)) {
     isCash = true;
   }
   var req_body = JSON.stringify({
