@@ -227,7 +227,7 @@ app.post("/add-game-quote", async (req, res) => {
   var method = body.method;
   var token = body.token;
   fetch(
-    "https://tradebooksapp.com/v1/api/tradebooks/crud/postgres/users/read",
+    "http://68.183.80.95:4122/v1/api/tradebooks/crud/mongo/users/read",
     {
       method: "POST",
       headers: {
@@ -270,7 +270,7 @@ app.post("/add-game-quote", async (req, res) => {
           },
         });
         var quoteResponse = await fetch(
-          "https://tradebooksapp.com/v1/api/tradebooks/crud/postgres/game_quotes/create",
+          "http://68.183.80.95:4122/v1/api/tradebooks/crud/mongo/game_quotes/create",
           {
             method: "POST",
             headers: {
@@ -285,7 +285,7 @@ app.post("/add-game-quote", async (req, res) => {
           throw "Error in adding quote";
         } else {
           var event = await fetch(
-            "https://tradebooksapp.com/v1/api/tradebooks/eventing/queue",
+            "http://68.183.80.95:4122/v1/api/tradebooks/eventing/queue",
             {
               method: "POST",
               headers: {
@@ -347,7 +347,7 @@ app.post("/update-game-quote", async (req, res) => {
   });
   try {
     var quoteResponse = await fetch(
-      "https://tradebooksapp.com/v1/api/tradebooks/crud/postgres/game_quotes/update",
+      "http://68.183.80.95:4122/v1/api/tradebooks/crud/mongo/game_quotes/update",
       {
         method: "POST",
         headers: {
@@ -362,7 +362,7 @@ app.post("/update-game-quote", async (req, res) => {
       throw "Error in updating quote";
     } else {
       var event = await fetch(
-        "https://tradebooksapp.com/v1/api/tradebooks/eventing/queue",
+        "http://68.183.80.95:4122/v1/api/tradebooks/eventing/queue",
         {
           method: "POST",
           headers: {
@@ -414,7 +414,7 @@ app.post("/delete-game-quote",async (req,res)=>{
   });
   try {
     var quoteResponse = await fetch(
-      "https://tradebooksapp.com/v1/api/tradebooks/crud/postgres/game_quotes/delete",
+      "http://68.183.80.95:4122/v1/api/tradebooks/crud/mongo/game_quotes/delete",
       {
         method: "POST",
         headers: {
@@ -429,7 +429,7 @@ app.post("/delete-game-quote",async (req,res)=>{
       throw "Error in deleting quote";
     } else {
       var event = await fetch(
-        "https://tradebooksapp.com/v1/api/tradebooks/eventing/queue",
+        "http://68.183.80.95:4122/v1/api/tradebooks/eventing/queue",
         {
           method: "POST",
           headers: {
@@ -489,7 +489,7 @@ app.post("/update-book-quote", async (req, res) => {
   });
   try {
     var quoteResponse = await fetch(
-      "https://tradebooksapp.com/v1/api/tradebooks/crud/postgres/book_quotes/update",
+      "http://68.183.80.95:4122/v1/api/tradebooks/crud/mongo/book_quotes/update",
       {
         method: "POST",
         headers: {
@@ -504,7 +504,7 @@ app.post("/update-book-quote", async (req, res) => {
       throw "Error in updating quote";
     } else {
       var event = await fetch(
-        "https://tradebooksapp.com/v1/api/tradebooks/eventing/queue",
+        "http://68.183.80.95:4122/v1/api/tradebooks/eventing/queue",
         {
           method: "POST",
           headers: {
@@ -556,7 +556,7 @@ app.post("/delete-book-quote",async(req,res)=>{
   });
   try {
     var quoteResponse = await fetch(
-      "https://tradebooksapp.com/v1/api/tradebooks/crud/postgres/book_quotes/delete",
+      "http://68.183.80.95:4122/v1/api/tradebooks/crud/mongo/book_quotes/delete",
       {
         method: "POST",
         headers: {
@@ -571,7 +571,7 @@ app.post("/delete-book-quote",async(req,res)=>{
       throw "Error in deleting quote";
     } else {
       var event = await fetch(
-        "https://tradebooksapp.com/v1/api/tradebooks/eventing/queue",
+        "http://68.183.80.95:4122/v1/api/tradebooks/eventing/queue",
         {
           method: "POST",
           headers: {
@@ -618,7 +618,7 @@ app.post("/add-book-quote", async (req, res) => {
   var method = body.method;
   var token = body.token;
   fetch(
-    "https://tradebooksapp.com/v1/api/tradebooks/crud/postgres/users/read",
+    "http://68.183.80.95:4122/v1/api/tradebooks/crud/mongo/users/read",
     {
       method: "POST",
       headers: {
@@ -661,7 +661,7 @@ app.post("/add-book-quote", async (req, res) => {
           },
         });
         var quoteResponse = await fetch(
-          "https://tradebooksapp.com/v1/api/tradebooks/crud/postgres/book_quotes/create",
+          "http://68.183.80.95:4122/v1/api/tradebooks/crud/mongo/book_quotes/create",
           {
             method: "POST",
             headers: {
@@ -676,7 +676,7 @@ app.post("/add-book-quote", async (req, res) => {
           throw "Error in adding quote";
         } else {
           var event = await fetch(
-            "https://tradebooksapp.com/v1/api/tradebooks/eventing/queue",
+            "http://68.183.80.95:4122/v1/api/tradebooks/eventing/queue",
             {
               method: "POST",
               headers: {
